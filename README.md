@@ -9,6 +9,18 @@ Los process correspondienestes a cada módulo son:
 3. Actuadores X3
 4. Actuadores X9
 
+## Configuración de Red
+La siguiente imagen presenta los componentes principales de la red
+![Image of network](/network.jpg)
+
+SSID = maticas_net \
+pass = yatusabe
+
+1. Servidor MQTT (Thingsboard) 192.168.0.1
+2. Base de datos (Influx con Chronograph) 192.168.0.1
+3. Controladores (RP3) 192.168.0.NX
+4. Sensores (RP ZERO) 192.168.0.NX
+
 ## Librerias
 Las siguientes lbrerias son usadas en python 3.7
 ```python
