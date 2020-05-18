@@ -7,14 +7,18 @@ from time import sleep
 from w1thermsensor import W1ThermSensor
 import logging
 import mh_z19
+import Adafruit_DHT
 
 #%% Read Temperature
-def read_temp(sensor):
-  if temp_sensor is not None :
-    return sensor.get_temperature()
-  else:
-    logger.info("[{}] Not temp sensor : ".format('RP'))
-    return None
+def read_temp():
+  # if temp_sensor is not None :
+  #   return sensor.get_temperature()
+  # else:
+  #   logger.info("[{}] Not temp sensor : ".format('RP'))
+  #   return None
+  pin = 4
+  return humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, pin)
+
 
 #%% Read CO2
 def read_co2():
@@ -37,17 +41,19 @@ if __name__ == "__main__":
   logger = logging.getLogger(__name__)
 
 #%% Connect temperature sensor
-  try :
-    temp_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "011453ea62aa")
-  except:
-    temp_sensor = None
+  # try :
+  #   temp_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "011453ea62aa")
+  # except:
+  #   temp_sensor = None
 
   logger.info("[{}] Starting infinit loop".format('RP')) #Registros gringos but it's ok
 
 #%% Send data
   while True:
+    temp, humidity = read_temp()
     data = {"ts": int(1000*time.time()),
-            "values":{"Temperature": read_temp(temp_sensor),
+            "values":{"Temperature": temp,
+                      "Humidity": humidity,
                       "CO2": read_co2(),
                       "RPmemory": round(psutil.virtual_memory().percent)
                       }
