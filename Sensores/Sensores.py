@@ -16,9 +16,12 @@ def read_temp():
   # else:
   #   logger.info("[{}] Not temp sensor : ".format('RP'))
   #   return None
-  pin = 4
-  return humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, pin)
-
+  humidity1, temperature1 = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, 4)
+  # humidity2, temperature2 = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, 3)
+  # humidity3, temperature3 = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, 4)
+  # humidity4, temperature4 = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, 5)
+  # return [temperature1, temperature2, temperature3, temperature4], [humidity1, humidity2, humidity3, humidity4]
+  return temperature1, humidity1
 
 #%% Read CO2
 def read_co2():
@@ -29,12 +32,19 @@ def read_co2():
     logger.info("[{}] Not CO2 sensor : ".format('RP'))
     return None
 
+#%% Define on connect
+def on_connect(client, userdata, rc, *extra_params):
+  print('Connected with result code ' + str(rc))
+  client.subscribe('v1/devices/me/rpc/request/+')
+  # client.publish('v1/devices/me/attributes', get_gpio_status(), 1)
+
 #%% Define client
 if __name__ == "__main__":
   client = mqtt.Client()
-  client.connect('35.203.15.169', 1883, 60)
+  client.on_connect = on_connect
+  client.username_pw_set('MaSXZ5bWwgwEE2eaLCua')
+  client.connect('155.138.133.71', port=1883, keepalive=60)
   client.loop_start()
-  TOPIC = "sensors"
 
 #%% Start Logger
   logging.basicConfig(level=logging.INFO, format='%(asctime)s  - [%(levelname)s] %(message)s')
@@ -45,13 +55,12 @@ if __name__ == "__main__":
   #   temp_sensor = W1ThermSensor(W1ThermSensor.THERM_SENSOR_DS18B20, "011453ea62aa")
   # except:
   #   temp_sensor = None
-
   logger.info("[{}] Starting infinit loop".format('RP')) #Registros gringos but it's ok
 
 #%% Send data
-  while True:
-    temp, humidity = read_temp()
-    data = {"ts": int(1000*time.time()),
+while True:
+  temp, humidity = read_temp()
+  data = {"ts": int(1000*time.time()),
             "values":{"Temperature": temp,
                       "Humidity": humidity,
                       "CO2": read_co2(),
@@ -59,6 +68,6 @@ if __name__ == "__main__":
                       }
             }
 
-    client.publish(TOPIC, json.dumps(data), 1)
-    time.sleep(5)
+  client.publish('v1/devices/me/telemetry', json.dumps(data), 1)
+  time.sleep(1)
 
