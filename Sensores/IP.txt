@@ -4,3 +4,6 @@ SENSORES1-1:  192.168.2.52
 SENSORES2-1:  192.168.2.53
 SENSORES3-1:  192.168.2.49
 SENSORES4-1:  192.168.2.54
+
+git filter-branch --force --index-filter  'git rm --cached --ignore-unmatch Sensores/senso1.img'   --prune-empty --tag-name-filter cat -- --all
+Sensores/senso1.img
