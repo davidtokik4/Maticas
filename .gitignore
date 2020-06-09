@@ -1,7 +1,7 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# __pycache__/
+# *.py[cod]
+# *$py.class
 
 # Images
 *.iso
@@ -10,7 +10,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-.Python
+# .Python
 build/
 develop-eggs/
 dist/

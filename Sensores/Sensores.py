@@ -25,12 +25,12 @@ def read_temp():
 
 #%% Read CO2
 def read_co2():
-  CO = mh_z19.read()
+  CO = mh_z19.read_all()
   if CO is not None :
-    return CO['co2']
+    return CO['co2'], CO['temperature']
   else:
     logger.info("[{}] Not CO2 sensor : ".format('RP'))
-    return None
+    return None, None
 
 #%% Define on connect
 def on_connect(client, userdata, rc, *extra_params):
@@ -59,15 +59,16 @@ if __name__ == "__main__":
 
 #%% Send data
 while True:
-  temp, humidity = read_temp()
+  temp1, humidity = read_temp()
+  co2, temp2 = read_co2()
   data = {"ts": int(1000*time.time()),
-            "values":{"Temperature": temp,
+            "values":{"Temperature": temp2,
                       "Humidity": humidity,
-                      "CO2": read_co2(),
+                      "CO2": co2,
                       "RPmemory": round(psutil.virtual_memory().percent)
                       }
             }
 
   client.publish('v1/devices/me/telemetry', json.dumps(data), 1)
-  time.sleep(1)
+  time.sleep(5)
 

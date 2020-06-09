@@ -90,7 +90,7 @@ $ sudo apt-get install supervisor
 $ cd /etc/supervisor/conf.d/
 $ sudo nano actuadores.conf
 ```
-4. Agregar la configuración
+4. Agregar la configuración 
 ```Python
 [program:actuadores]
 directory = /home/pi/
@@ -106,6 +106,8 @@ stdout_logfile=/var/log/supervisor/sensores.log
 
 ## Revisar 
 En el servidor de Thingsboard se debe configurar los widgets que envíen señales de activación a los GPIO
+
+Revisar también que los relés se activen
 
 Revisar los logs en
 ```Bash

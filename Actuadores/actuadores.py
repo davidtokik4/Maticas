@@ -1,3 +1,17 @@
+'''
+Querido colega programador:
+
+Cuando escribí este código, solo Dios y yo
+sabíamos como funcionaba.
+Ahora, ¡sólo Dios lo sabe!
+
+Así que si está tratando de 'optimizarlo'
+y fracasa (seguramente), por favor,
+incremente el contador a continuación
+como una advertencia para su siguiente colega:
+
+total_horas_perdidas_aquí: 207
+'''
 #%% Import libraries
 import paho.mqtt.client as mqtt
 import time, psutil
