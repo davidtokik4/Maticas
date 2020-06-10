@@ -6,6 +6,9 @@
 # Images
 *.iso
 
+#Config files
+*.conf
+
 # C extensions
 *.so
 

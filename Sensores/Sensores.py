@@ -27,7 +27,7 @@ def read_temp():
 #%% Read CO2
 def read_co2():
     CO = mh_z19.read_all()
-    if CO is not None:
+    if CO is not None and isinstance(CO,dict):
         return CO["co2"], CO["temperature"]
     else:
         logger.info("[{}] Not CO2 sensor : ".format("RP"))
