@@ -64,19 +64,24 @@ if __name__ == "__main__":
         "[{}] Starting infinit loop".format("RP")
     )  # Registros gringos but it's ok
 
-#%% Send data
-while True:
-    temp1, humidity = read_temp()
-    co2, temp2 = read_co2()
-    data = {
-        "ts": int(1000 * time.time()),
-        "values": {
-            "Temperature": temp2,
-            "Humidity": humidity,
-            "CO2": co2,
-            "RPmemory": round(psutil.virtual_memory().percent),
-        },
-    }
+    mh_z19.zero_point_calibration()
+    mh_z19.detection_range_5000()
+    mh_z19.detection_range_5000()
 
-    client.publish("v1/devices/me/telemetry", json.dumps(data), 1)
-    time.sleep(5)
+#%% Send data
+    while True:
+        temp1, humidity = read_temp()
+        co2, temp2 = read_co2()
+        data = {
+            "ts": int(1000 * time.time()),
+            "values": {
+                "Temperature": temp2,
+                "Humidity": humidity,
+                "CO2": co2,
+                "RPmemory": round(psutil.virtual_memory().percent),
+            },
+        }
+
+        client.publish("v1/devices/me/telemetry", json.dumps(data), 1)
+        time.sleep(5)
+
