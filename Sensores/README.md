@@ -105,7 +105,7 @@ El pinout es este
 ![temp_pin](https://www.circuitbasics.com/wp-content/uploads/2015/12/DHT11-Pinout-for-three-pin-and-four-pin-types-2-1024x742.jpg)
 
 Para el sensor SHT30 habilitar el I2C desde raspi-config y conectar los pines SCL y SDA a las raspberry
-![sht_pin](https://ibb.co/dJtt5km)
+![sht_pin](https://i.ibb.co/zHFF4P6/ndice.jpg)
 
 
 ## Iniciar el script
