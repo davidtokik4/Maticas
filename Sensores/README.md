@@ -76,6 +76,7 @@ $ pip3 install psutil
 $ pip3 install w1thermsensor
 $ pip3 install mh_z19
 $ pip3 install Adafruit_DHT
+$ pip3 install smbus
 ```
 14. Set la zona horaria desde raspi-config
 
