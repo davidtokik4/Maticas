@@ -103,6 +103,8 @@ La conexión del sensor de temperatura es como en la imagen pero los pines de se
 El pinout es este
 ![temp_pin](https://www.circuitbasics.com/wp-content/uploads/2015/12/DHT11-Pinout-for-three-pin-and-four-pin-types-2-1024x742.jpg)
 
+Para el sensor SHT30 habilitar el I2C desde raspi-config y conectar los pines SCL y SDA a las raspberry
+![sht_pin](https://ibb.co/dJtt5km)
 
 
 ## Iniciar el script
@@ -121,7 +123,8 @@ $ sudo nano sensores.conf
 ```Python
 [program:sensores]
 directory = /home/pi/
-command = sudo python3 sensores.py
+#command = sudo python3 sensores.py
+command = sudo python3 sensores_SHT30.py
 user = root
 password = raspberry
 autosart = true
